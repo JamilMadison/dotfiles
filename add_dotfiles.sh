@@ -1,11 +1,12 @@
 #!/bin/bash
+
 # Create the dotfiles directory if it doesn't exist
 mkdir -p ~/dotfiles
 
 # Function to copy a directory if it exists
 copy_if_exists() {
     if [ -d "$1" ]; then
-        mkdir -p "$(dirname "$2")"
+        mkdir -p "$2"
         cp -r "$1" "$2"
         echo "$1 folder copied successfully."
     else
@@ -14,37 +15,44 @@ copy_if_exists() {
 }
 
 # Copy kitty config
-copy_if_exists ~/.config/kitty ~/dotfiles/.config/kitty
+copy_if_exists ~/.config/kitty ~/dotfiles/.config/
 
 # Copy fastfetch config
-copy_if_exists ~/.config/fastfetch ~/dotfiles/.config/fastfetch
+copy_if_exists ~/.config/fastfetch ~/dotfiles/.config/
 
-# Copy .themes folder
-copy_if_exists ~/.themes ~/dotfiles/.themes
+# Create a list of installed themes
+echo "Creating list of installed themes..."
+themes_list=~/dotfiles/themes-list.txt
+> "$themes_list"
+if [ -d ~/.themes ]; then
+    ls ~/.themes > "$themes_list"
+    echo "List of themes saved to $themes_list"
+else
+    echo "No .themes folder found."
+fi
 
-# Copy .icons folder
-copy_if_exists ~/.icons ~/dotfiles/.icons
+# Create a list of installed icons
+echo "Creating list of installed icons..."
+icons_list=~/dotfiles/icons-list.txt
+> "$icons_list"
+if [ -d ~/.icons ]; then
+    ls ~/.icons > "$icons_list"
+    echo "List of icons saved to $icons_list"
+else
+    echo "No .icons folder found."
+fi
 
 # Copy wallpapers folder
 copy_if_exists ~/wallpapers ~/dotfiles/wallpapers
-
-# Copy GNOME Shell extensions
-extensions_dir=~/.local/share/gnome-shell/extensions
-copy_if_exists "$extensions_dir" ~/dotfiles/gnome-shell-extensions
 
 # Backup dconf settings
 dconf dump / > ~/dotfiles/dconf-settings.ini
 echo "dconf settings exported successfully."
 
-# Backup list of enabled extensions
-gsettings get org.gnome.shell enabled-extensions > ~/dotfiles/enabled-extensions.txt
-echo "List of enabled extensions saved."
-
 # Create a list of installed extensions with their URLs
 echo "Creating list of installed extensions..."
 extensions_list=~/dotfiles/extensions-list.txt
 > "$extensions_list"
-
 for extension in ~/.local/share/gnome-shell/extensions/*; do
     if [ -d "$extension" ]; then
         uuid=$(basename "$extension")
