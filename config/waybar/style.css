@@ -1,1 +1,235 @@
-/home/jamil/.config/waybar/style/[Dark] Wallust Obsidian Edge.css
+@define-color canvas #000000;
+@define-color primary #ffffff;
+@define-color accent #ae00ff;
+
+* {
+	font-family: Noto Sans Mono, FontAwesome, Roboto;
+	font-size: 14px;
+}
+
+window#waybar {
+	background-color: @canvas;
+	color: @primary;
+	transition: background-color 0.5s;
+	margin: 16px 0 0 0;
+	padding: 0 8px;
+}
+
+window#waybar.hidden {
+	opacity: 0.2;
+}
+
+window#waybar.termite {
+	background-color: #3f3f3f;
+}
+
+window#waybar.chromium {
+	background-color: #000000;
+	border: none;
+}
+
+/* Button Styles */
+button {
+	box-shadow: inset 0 -3px transparent;
+	border: none;
+	border-radius: 0;
+}
+
+/* Pulseaudio Styles */
+#pulseaudio:hover {
+}
+
+#pulseaudio {
+}
+
+#pulseaudio.muted {
+}
+
+/* Workspaces Styles */
+#workspaces button {
+	padding: 0 12px;
+	background-color: transparent;
+	color: #ffffff;
+	font-size: 16px;
+}
+
+#workspaces button:hover {
+	background: rgba(0, 0, 0, 0.2);
+}
+
+#workspaces button.active {
+	color: @primary;
+}
+
+#workspaces button.urgent {
+	background-color: #eb4d4b;
+}
+
+/* Module Styles */
+#mode {
+	box-shadow: inset 0 -3px #ffffff;
+}
+
+#clock,
+#battery,
+#cpu,
+#memory,
+#disk,
+#temperature,
+#backlight,
+#network,
+#pulseaudio,
+#wireplumber,
+#custom-media,
+#tray,
+#mode,
+#idle_inhibitor,
+#scratchpad,
+#power-profiles-daemon,
+#mpd {
+	padding: 0 10px;
+	color: @primary;
+}
+
+/* Window and Workspaces Margins */
+#window,
+#workspaces {
+	margin: 0 4px;
+}
+
+/* Leftmost and Rightmost Module Margins */
+.modules-left > widget:first-child > #workspaces {
+	margin-left: 0;
+}
+
+.modules-right > widget:last-child > #workspaces {
+	margin-right: 0;
+}
+
+/* Battery Styles */
+#battery {
+	color: @primary;
+}
+
+#battery.charging,
+#battery.plugged {
+	color: @primary;
+}
+
+@keyframes blink {
+	to {
+		color: @primary;
+	}
+}
+
+#battery.critical:not(.charging) {
+	color: #f53c3c;
+	animation: blink 1s steps(12) infinite alternate;
+}
+
+/* Label Focus Styles */
+label:focus {
+	background-color: #000000;
+}
+
+/* Network Styles */
+#network {
+	color: #ffffff;
+}
+
+#network.disconnected {
+	color: #ffffff;
+}
+
+/* Custom Media Styles */
+#custom-media {
+	background-color: #66cc99;
+	color: #2a5c45;
+	min-width: 100px;
+}
+
+#custom-media.custom-spotify {
+	background-color: #66cc99;
+}
+
+#custom-media.custom-vlc {
+	background-color: #ffa000;
+}
+
+/* Temperature Styles */
+#temperature {
+	color: #ffffff;
+}
+
+#temperature.critical {
+	color: #eb4d4b;
+}
+
+/* Tray Styles */
+#tray {
+}
+
+#tray > .passive {
+	-gtk-icon-effect: dim;
+}
+
+#tray > .needs-attention {
+	-gtk-icon-effect: highlight;
+	background-color: #eb4d4b;
+}
+
+/* Idle Inhibitor Styles */
+#idle_inhibitor {
+}
+
+#idle_inhibitor.activated {
+}
+
+/* MPD Styles */
+#mpd {
+	background-color: #66cc99;
+	color: #2a5c45;
+}
+
+#mpd.disconnected {
+	background-color: #f53c3c;
+}
+
+#mpd.stopped {
+	background-color: #90b1b1;
+}
+
+#mpd.paused {
+	background-color: #51a37a;
+}
+
+/* Scratchpad Styles */
+#scratchpad {
+	background: rgba(0, 0, 0, 0.2);
+}
+
+#scratchpad.empty {
+	background-color: transparent;
+}
+
+/* Privacy Styles */
+#privacy {
+	padding: 0;
+}
+
+#privacy-item {
+	padding: 0 5px;
+	color: white;
+}
+
+#privacy-item.screenshare {
+	background-color: #cf5700;
+}
+
+#privacy-item.audio-in {
+	background-color: #1ca000;
+}
+
+#privacy-item.audio-out {
+	background-color: #0069d4;
+}
