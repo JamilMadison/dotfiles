@@ -1,6 +1,9 @@
 // -*- mode: jsonc -*-
 {
-    "height": 34,
+    "height": 32,
+    "margin-top": 4,
+    "margin-right": 8,
+    "margin-left": 8,
     "spacing": 4, 
     "modules-left": [
         "wlr/taskbar",
@@ -23,7 +26,7 @@
         "format": "{icon}",
         "format-icons": {
             "default": "",
-            "active":"",
+            "active":"",
         },
     },
 "hyprland/window": {

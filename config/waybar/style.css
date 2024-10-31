@@ -6,13 +6,18 @@
 	font-family: Noto Sans Mono, FontAwesome, Roboto;
 	font-size: 14px;
 }
+#mpris {
+	color: @accent;
+}
 
 window#waybar {
-	background-color: @canvas;
+	background-color: rgba(0, 0, 0, 0.9);
+	border: 2px solid rgba(255, 255, 255, 0.1);
+	border-radius: 20px;
 	color: @primary;
 	transition: background-color 0.5s;
-	margin: 16px 0 0 0;
 	padding: 0 8px;
+	margin: 0 4px;
 }
 
 window#waybar.hidden {
@@ -47,10 +52,8 @@ button {
 
 /* Workspaces Styles */
 #workspaces button {
-	padding: 0 12px;
-	background-color: transparent;
-	color: #ffffff;
-	font-size: 16px;
+	color: @accent;
+	font-size: 12px;
 }
 
 #workspaces button:hover {
