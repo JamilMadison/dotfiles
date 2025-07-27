@@ -1,0 +1,147 @@
+// -*- mode: jsonc -*-
+{
+    "spacing": 8,
+    "margin-top": 10,
+    "margin-right": 10,
+    "margin-left": 10,
+    "modules-left": [
+     "wlr/taskbar",
+    ],
+    "position": "top", 
+    "modules-center": [
+                "mpris",
+    ],
+    "modules-right": [
+                "clock",
+        "network",
+        "battery",
+        "pulseaudio",
+             "custom/spacer",
+        "tray",
+    ],
+    // Modules configuration
+
+"hyprland/window": {
+    "icon": true,
+    "separate-outputs": true,
+    "max-length": 20,
+},
+    "hyprland/mode": {
+        "format": "<span style=\"italic\">{}</span>"
+    },
+    "hyprland/scratchpad": {
+        "format": "{icon} {count}",
+        "show-empty": false,
+        "format-icons": ["", ""],
+        "tooltip": true,
+        "tooltip-format": "{app}: {title}"
+    },
+    "idle_inhibitor": {
+        "format": "{icon}",
+        "format-icons": {
+            "activated": "",
+            "deactivated": ""
+        }
+    },
+    "clock": {
+        "format": "{:%H:%M}",
+        "timezone": "America/Los_Angeles",
+        "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
+        "format-alt": "{:%Y-%m-%d}"
+    },
+    "cpu": {
+        "format": "{usage}% ",
+        "tooltip": false
+    },
+    "memory": {
+        "format": "{}% 󰍛"
+    },
+    "battery": {
+        "states": {
+            "good": 70,
+            "warning": 50,
+            "critical": 20
+        },
+        "format": "{icon} {capacity}%",
+        "format-full": "{icon} {capacity}%",
+        "format-charging": "󰂄 {capacity}%",
+        "format-plugged": " {capacity}%",
+        "format-alt": "{icon} {time}",
+        "format-icons": ["󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰂀", "󰂁", "󰂂", "󰁹",]
+    },
+    "mpris": {
+	"format": "{player_icon} {dynamic}",
+    "dynamic-order": ["artist", "title"],
+	"format-paused": "{status_icon} <i>{dynamic}</i>",
+	"player-icons": {
+		"default": "▶",
+		"mpv": "🎵"
+	},
+	"status-icons": {
+		"paused": "⏸"
+	},
+	"ignored-players": ["firefox"]
+},
+     "network": {
+        "interval": 5,
+        "format-wifi": " {signalStrength}%", // Icon: wifi
+        "format-ethernet": "󰈁  {ifname}: {ipaddr}/{cidr}", // Icon: ethernet
+        "format-disconnected": "󱚼",
+        "tooltip-format": "{ifname}: {ipaddr}"
+    },
+    "tray": {
+        "icon-size": 16,
+        "spacing": 4,
+        "max-length": 20,
+        "tooltip-format": "{name}"
+    },
+    "custom/spacer": {
+		"format": "|"
+	},
+    "pulseaudio": {
+        "scroll-step": 1, // %, can be a float
+        "format": "{icon} {volume}%",
+        "format-bluetooth": " {volume}%",
+        "format-muted": "",
+        "format-icons": {
+            "headphone": "",
+            "default": ["", ""],
+            "bluetooth": "",
+            "headset": "",
+            "muted": ""
+        },
+    },
+        "idle_inhibitor": {
+        "format": "{icon}",
+        "format-icons": {
+            "activated": "",
+            "deactivated": ""
+        }
+    },
+    "wlr/taskbar": {
+    "format": "{app_id}",
+    "tooltip-format": "{title}",
+    "on-click": "activate",
+    "on-click-middle": "close",
+    "ignore-list": [
+       "Alacritty"
+    ],
+    "app_ids-mapping": {
+      "firefoxdeveloperedition": "firefox-developer-edition"
+    },
+    "rewrite": {
+        "org.mozilla.firefox": "",
+        "kitty": "",
+        "code": "",
+        "spotify": "",
+        "org.gnome.Nautilus": "󱧷",
+        "veracrypt": "",
+        "org.gnome.TextEditor": "",
+        "mpv": "",
+        "discord": "󰙯",
+        "obsidian": "",
+        "blueman-applet": "",
+        "org.gnome.Loupe": "",
+    }
+},
+}

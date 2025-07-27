@@ -1,0 +1,40 @@
+# Font settings
+font_family Noto Sans Mono
+font_size 12.0
+bold_font auto
+italic_font auto
+bold_italic_font auto
+
+# Appearance settings
+foreground #ffffff
+background #000000
+cursor #606c38
+cursor_text_color #606c38
+background_opacity 0.5
+background_blur 3
+
+# Tab bar settings
+tab_bar_style powerline
+tab_powerline_style slanted
+tab_bar_edge bottom
+tab_bar_align left
+active_tab_font_style bold
+inactive_tab_font_style normal
+
+# Window settings
+confirm_os_window_close 0
+linux_display_server auto
+window_padding_width 10
+detect_urls yes
+underline_hyperlinks hover
+
+# Scrolling settings
+scrollback_lines 2000
+wheel_scroll_min_lines 1
+
+# Selection settings
+selection_foreground none
+selection_background none
+
+# Audio settings
+enable_audio_bell no

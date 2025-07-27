@@ -1,0 +1,198 @@
+# Monitor
+monitor=,highres,auto,1
+$mainMod = SUPER
+$terminal = kitty
+$code = code
+$files = nautilus
+$menu = wofi --show drun
+$browser = firefox
+$veracrypt = veracrypt
+$spotify = flatpak run com.spotify.Client
+$lock = hyprlock
+# Add calibre
+# Add dropbox
+
+# Program Keybinds
+bind = $mainMod, T, exec, $terminal # Terminal
+bind = $mainMod, E, exec, $files # Files
+bind = $mainMod, F, fullscreen, 1 # Fullscreen
+bind = $mainMod, B, exec, $browser # Firefox
+bind = $mainMod, C, exec, $code # Virtual Studio Code
+bind = $mainMod, V, exec, $veracrypt
+bind = $mainMod, S, exec, $spotify # Spotify
+bind = $mainMod, R, exec, $menu # Menu
+bind = $mainMod, L, exec, $lock # Lock
+bind = $mainMod, Q, killactive # Kill Window
+bind = CTRL ALT, DELETE, exit, # Logout
+
+bindm = $mainMod, mouse:272, movewindow
+bindm = $mainMod, mouse:273, resizewindow
+
+
+# Move focus
+bind = $mainMod, left, movefocus, l # Move left
+bind = $mainMod, right, movefocus, r # Move right
+bind = $mainMod, up, movefocus, u # Move up
+bind = $mainMod, down, movefocus, d # Move down
+
+# Switch workspaces (1-5)
+bind = $mainMod, 1, workspace, 1
+bind = $mainMod, 2, workspace, 2
+bind = $mainMod, 3, workspace, 3
+bind = $mainMod, 4, workspace, 4 
+bind = $mainMod, 5, workspace, 5
+
+# Move active window to a workspace (1-5)
+bind = $mainMod SHIFT, 1, movetoworkspace, 1
+bind = $mainMod SHIFT, 2, movetoworkspace, 2
+bind = $mainMod SHIFT, 3, movetoworkspace, 3
+bind = $mainMod SHIFT, 4, movetoworkspace, 4
+bind = $mainMod SHIFT, 5, movetoworkspace, 5
+
+# Autostart
+ exec-once = waybar
+ exec-once = waypaper --restore
+ exec-once = nm-applet --indicator
+ exec-once = blueman-applet
+
+# Environmnet variables
+env = XCURSOR_SIZE,14
+env = HYPRCURSOR_SIZE,14
+
+
+# Style
+general {
+    gaps_in = 0 # Remove 
+    gaps_out = 0 # Remove
+    border_size = 1
+    col.active_border = rgba(ffffffaa) # Active border color
+    col.inactive_border = rgba(000000ff)
+    resize_on_border = false
+    allow_tearing = false
+    layout = dwindle
+}
+
+# Decoration
+decoration {
+    rounding = 0 # Remove
+    active_opacity = 1
+    inactive_opacity = 1
+    blur {
+        enabled = true
+        size = 2
+        passes = 2
+        vibrancy = 1
+    }
+}
+
+# Animations
+animations {
+    enabled = true
+    bezier = easeOutQuint,0.23,1,0.32,1
+    bezier = easeInOutCubic,0.65,0.05,0.36,1
+    bezier = linear,0,0,1,1
+    bezier = almostLinear,0.5,0.5,0.75,1.0
+    bezier = quick,0.15,0,0.1,1
+
+    animation = global, 1, 10, default
+    animation = border, 1, 5.39, easeOutQuint
+    animation = windows, 1, 4.79, easeOutQuint
+    animation = windowsIn, 1, 4.1, easeOutQuint, popin 87%
+    animation = windowsOut, 1, 1.49, linear, popin 87%
+    animation = fadeIn, 1, 1.73, almostLinear
+    animation = fadeOut, 1, 1.46, almostLinear
+    animation = fade, 1, 3.03, quick
+    animation = layers, 1, 3.81, easeOutQuint
+    animation = layersIn, 1, 4, easeOutQuint, fade
+    animation = layersOut, 1, 1.5, linear, fade
+    animation = fadeLayersIn, 1, 1.79, almostLinear
+    animation = fadeLayersOut, 1, 1.39, almostLinear
+    animation = workspaces, 1, 1.94, almostLinear, fade
+    animation = workspacesIn, 1, 1.21, almostLinear, fade
+    animation = workspacesOut, 1, 1.94, almostLinear, fade
+}
+dwindle {
+    pseudotile = true # Master switch for pseudotiling. Enabling is bound to mainMod + P in the keybinds section below
+    preserve_split = true # You probably want this
+}
+master {
+    new_status = master
+}
+
+misc {
+    force_default_wallpaper = 0
+    disable_hyprland_logo = true
+}
+
+
+# Input 
+input {
+    kb_layout = us
+    kb_variant =
+    kb_model =
+    kb_options =
+    kb_rules =
+    follow_mouse = 1
+    sensitivity = 0
+    touchpad {
+        natural_scroll = true
+    }
+}
+
+# https://wiki.hyprland.org/Configuring/Variables/#gestures
+gestures {
+  workspace_swipe = true
+  workspace_swipe_fingers = 3
+  workspace_swipe_distance = 300
+  workspace_swipe_invert = true
+  workspace_swipe_min_speed_to_force = 30
+  workspace_swipe_cancel_ratio = 0.3
+  workspace_swipe_create_new = true
+  workspace_swipe_forever = false
+}
+
+# Example per-device config
+# See https://wiki.hyprland.org/Configuring/Keywords/#per-device-input-configs for more
+device {
+    name = epic-mouse-v1
+    sensitivity = -0.5
+}
+
+# Scroll through existing workspaces with mainMod + scroll
+bind = $mainMod, mouse_down, workspace, e+1
+bind = $mainMod, mouse_up, workspace, e-1
+
+# Laptop multimedia keys for volume and LCD brightness
+bindel = ,XF86AudioRaiseVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+
+bindel = ,XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-
+bindel = ,XF86AudioMute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle
+bindel = ,XF86AudioMicMute, exec, wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle
+bindel = ,XF86MonBrightnessUp, exec, brightnessctl s 10%+
+bindel = ,XF86MonBrightnessDown, exec, brightnessctl s 10%-
+
+# MISC
+bindl = , XF86AudioNext, exec, playerctl next
+bindl = , XF86AudioPause, exec, playerctl play-pause
+bindl = , XF86AudioPlay, exec, playerctl play-pause
+bindl = , XF86AudioPrev, exec, playerctl previous
+
+windowrulev2 = suppressevent maximize, class:.*
+windowrulev2 = nofocus,class:^$,title:^$,xwayland:1,floating:1,fullscreen:0,pinned:0
+
+# Smart Gaps
+workspace = w[t1], gapsout:0, gapsin:0
+workspace = w[tg1], gapsout:0, gapsin:0
+workspace = f[1], gapsout:0, gapsin:0
+windowrulev2 = bordersize 0, floating:0, onworkspace:w[t1]
+windowrulev2 = rounding 0, floating:0, onworkspace:w[t1]
+windowrulev2 = bordersize 0, floating:0, onworkspace:w[tg1]
+windowrulev2 = rounding 0, floating:0, onworkspace:w[tg1]
+windowrulev2 = bordersize 0, floating:0, onworkspace:f[1]
+windowrulev2 = rounding 0, floating:0, onworkspace:f[1]
+
+# Screenshot a window
+bind = $mainMod, PRINT, exec, hyprshot -m window
+# Screenshot a monitor
+bind = , PRINT, exec, hyprshot -m output
+# Screenshot a region
+bind = $shiftMod, PRINT, exec, hyprshot -m region

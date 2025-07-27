@@ -1,23 +1,23 @@
-@define-color canvas #000000;
+@define-color canvas #CCCCCC;
 @define-color primary #ffffff;
-@define-color accent #ae00ff;
+@define-color accent #333333;
 
 * {
 	font-family: Noto Sans Mono, FontAwesome, Roboto;
 	font-size: 14px;
+	font-weight: 400;
+	padding: 2;
+	color: @primary;
 }
 #mpris {
-	color: @accent;
+	color: @primary;
 }
 
 window#waybar {
-	background-color: rgba(0, 0, 0, 0.9);
-	border: 2px solid rgba(255, 255, 255, 0.1);
-	border-radius: 20px;
-	color: @primary;
+	border-top: 1px solid rgb(255, 255, 255);
+	background-color: rgba(8, 8, 8, 0.1);
+	color: rgb(255, 255, 255);
 	transition: background-color 0.5s;
-	padding: 0 8px;
-	margin: 0 4px;
 }
 
 window#waybar.hidden {
@@ -40,28 +40,25 @@ button {
 	border-radius: 0;
 }
 
-/* Pulseaudio Styles */
-#pulseaudio:hover {
-}
-
-#pulseaudio {
-}
-
-#pulseaudio.muted {
-}
-
 /* Workspaces Styles */
+#workspaces {
+	background-color: rgba(0, 0, 0, 1);
+	border-radius: 16;
+}
+
 #workspaces button {
-	color: @accent;
+	color: @primary;
 	font-size: 12px;
 }
 
 #workspaces button:hover {
-	background: rgba(0, 0, 0, 0.2);
+	/* background: #cccccc; */
+	color: @accent;
 }
 
 #workspaces button.active {
 	color: @primary;
+	font-weight: 700;
 }
 
 #workspaces button.urgent {
@@ -90,7 +87,7 @@ button {
 #scratchpad,
 #power-profiles-daemon,
 #mpd {
-	padding: 0 10px;
+	padding: 0 5px;
 	color: @primary;
 }
 
@@ -162,6 +159,11 @@ label:focus {
 /* Temperature Styles */
 #temperature {
 	color: #ffffff;
+}
+
+#taskbar {
+	/* background-color: rgba(255, 255, 255, 0.2); */
+	border-radius: 8px;
 }
 
 #temperature.critical {

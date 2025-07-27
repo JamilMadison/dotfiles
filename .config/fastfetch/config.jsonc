@@ -5,10 +5,17 @@
     	"padding": {
             "top": 2,
             "right": 6
-        }
+        },
+        "color": {             // Override logo colors
+        "1": "white",
+    }
     },
   "display": {
-    "separator": "  "
+    "separator": "  ",
+    "color": {
+        "keys": "white",    // Key color
+        "title": "white"     // Title color
+    },
   },
   "modules": [
     // Title
@@ -100,12 +107,6 @@
     {
       "type": "custom",
       "format": "{#1}│"
-    },
-    // Colors
-    {
-      "type": "colors",
-      "key": "{#separator}│",
-      "symbol": "circle"
     },
     // Footer
     {

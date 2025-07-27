@@ -1,0 +1,52 @@
+#!/bin/bash
+# Set random wallpaper and colors on login
+
+# Configuration
+WALLPAPER_DIR="/home/$USER/Pictures/wallpapers"
+USE_THEMES=false  # Set to true if you want random themes instead
+LIGHT_MODE=false  # Set to true for light mode
+
+# Function to get random wallpaper
+get_random_wallpaper() {
+    find "$WALLPAPER_DIR" -type f \( -iname "*.jpg" -o -iname "*.jpeg" -o -iname "*.png" \) | shuf -n 1
+}
+
+# Function to get random theme
+get_random_theme() {
+    wal --theme | grep " - " | sed 's/ - //' | shuf -n 1
+}
+
+# Start swww daemon if not running
+pgrep -x swww-daemon > /dev/null || swww-daemon &
+sleep 1
+
+# Apply random colors
+if [ "$USE_THEMES" = true ]; then
+    # Use random theme
+    THEME=$(get_random_theme)
+    echo "Applying random theme: $THEME"
+    if [ "$LIGHT_MODE" = true ]; then
+        wal --theme "$THEME" -l
+    else
+        wal --theme "$THEME"
+    fi
+else
+    # Use random wallpaper
+    WALLPAPER=$(get_random_wallpaper)
+    if [ -f "$WALLPAPER" ]; then
+        echo "Applying random wallpaper: $WALLPAPER"
+        if [ "$LIGHT_MODE" = true ]; then
+            wal -i "$WALLPAPER" -l
+        else
+            wal -i "$WALLPAPER"
+        fi
+        # Set wallpaper with swww
+        swww img "$WALLPAPER" --resize crop
+    else
+        echo "No wallpapers found in $WALLPAPER_DIR"
+        exit 1
+    fi
+fi
+
+killall -SIGUSR2 waybar
+echo "Random setup complete!"

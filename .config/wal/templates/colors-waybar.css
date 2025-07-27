@@ -1,0 +1,13 @@
+/* pywal template for Waybar */
+@define-color background {background};
+@define-color background-alt {color1};
+@define-color foreground {foreground};
+@define-color primary {foreground};
+@define-color accent {color2};
+@define-color secondary {color4};
+@define-color success {color2};
+@define-color warning {color3};
+@define-color error {color1};
+@define-color border {color8};
+
+/* Import this file in your main style.css */

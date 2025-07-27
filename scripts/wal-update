@@ -1,0 +1,85 @@
+#!/bin/bash
+# Update system colors and wallpaper with pywal
+
+# Store the original wallpaper path
+WALLPAPER_PATH=""
+LIGHT_MODE=""
+
+# Check for light mode flag
+if [[ "$1" == "-l" ]] || [[ "$1" == "--light" ]]; then
+    LIGHT_MODE="-l"
+    shift  # Remove the flag from arguments
+fi
+
+# Generate colors from wallpaper or theme
+if [ "$1" ]; then
+    if [[ "$1" == "--theme" ]]; then
+        wal --theme "$2" $LIGHT_MODE
+    else
+        # Store the wallpaper path
+        WALLPAPER_PATH="$(realpath "$1")"
+        wal -i "$1" $LIGHT_MODE
+        
+        # Set wallpaper with swww
+        if command -v swww >/dev/null 2>&1 && [ -f "$WALLPAPER_PATH" ]; then
+            # Ensure swww daemon is running
+            pgrep -x swww-daemon > /dev/null || swww-daemon &
+            sleep 0.5
+            # Set the wallpaper directly
+            swww img "$WALLPAPER_PATH" --resize crop
+        fi
+    fi
+else
+    echo "Usage: wal-update [-l|--light] <wallpaper-path>"
+    echo "Or: wal-update [-l|--light] --theme <theme-name>"
+    echo ""
+    echo "Options:"
+    echo "  -l, --light    Generate light color scheme"
+    echo ""
+    echo "Examples:"
+    echo "  wal-update ~/Pictures/wallpaper.jpg           # Dark mode"
+    echo "  wal-update -l ~/Pictures/wallpaper.jpg        # Light mode"
+    echo "  wal-update --theme base16-gruvbox-dark-hard   # Dark theme"
+    echo "  wal-update -l --theme base16-gruvbox-light-soft # Light theme"
+    exit 1
+fi
+
+# Reload Waybar
+killall -SIGUSR2 waybar
+
+# Reload Kitty colors (for all running instances)
+killall -SIGUSR1 kitty 2>/dev/null
+
+# Reload Hyprland
+hyprctl reload
+
+# Update VS Code theme if it's running
+if pgrep -x "code" > /dev/null; then
+    code --command "walTheme.update" 2>/dev/null
+fi
+
+# Update GTK theme to match light/dark mode
+if [[ -n "$LIGHT_MODE" ]]; then
+    # Light mode
+    gsettings set org.gnome.desktop.interface gtk-theme "Adwaita"
+    gsettings set org.gnome.desktop.interface color-scheme 'prefer-light'
+else
+    # Dark mode
+    gsettings set org.gnome.desktop.interface gtk-theme "Adwaita-dark"
+    gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'
+fi
+
+# Update Spotify theme
+if [ -x ~/.local/bin/spotify-pywal-update ]; then
+    ~/.local/bin/spotify-pywal-update
+fi
+
+# Optional: Send notification (only if notification daemon is running)
+MODE="Dark"
+[[ -n "$LIGHT_MODE" ]] && MODE="Light"
+
+if pgrep -x "mako" > /dev/null || pgrep -x "dunst" > /dev/null; then
+    notify-send "Pywal" "$MODE color scheme and wallpaper updated" -i preferences-color 2>/dev/null
+fi
+
+echo "$MODE colors and wallpaper updated successfully!"
